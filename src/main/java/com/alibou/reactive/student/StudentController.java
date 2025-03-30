@@ -1,6 +1,7 @@
 package com.alibou.reactive.student;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,10 +18,14 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/v1/students")
-@RequiredArgsConstructor
 public class StudentController {
 
+
   private final StudentService service;
+  public StudentController(StudentService studentService){
+    service= studentService;
+  }
+
 
   @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public Flux<Student> findAll() {
